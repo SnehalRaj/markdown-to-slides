@@ -21,7 +21,7 @@
   <line x1="220" y1="74" x2="270" y2="74" stroke="#B8D4F0" stroke-width="2" stroke-linecap="round"/>
   <line x1="220" y1="81" x2="275" y2="81" stroke="#B8D4F0" stroke-width="2" stroke-linecap="round"/>
   <!-- Title text -->
-  <text x="325" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" fill="#1A3A5C">md-slides</text>
+  <text x="325" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="700" fill="#1A3A5C">markdown-to-slides</text>
   <!-- Subtitle -->
   <text x="325" y="82" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#5A7A9A">Markdown → Beautiful Beamer PDFs</text>
   <!-- Bottom tagline -->

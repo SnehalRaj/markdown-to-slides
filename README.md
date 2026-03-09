@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.svg" width="600" alt="md-slides logo"/>
+  <img src="assets/logo.svg" width="600" alt="markdown-to-slides logo"/>
   <br/><br/>
 
   [![Claude Code Skill](https://img.shields.io/badge/Claude_Code-Skill-F97316?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQyIDAtOC0zLjU4LTgtOHMzLjU4LTggOC04IDggMy41OCA4IDgtMy41OCA4LTggOHoiLz48L3N2Zz4=)](https://docs.anthropic.com/en/docs/claude-code)
@@ -16,7 +16,7 @@
 
 ## What is this?
 
-**md-slides** is a Claude Code skill that turns Markdown files into polished Beamer PDF slide decks — and then *checks its own work*.
+**markdown-to-slides** is a Claude Code skill that turns Markdown files into polished Beamer PDF slide decks — and then *checks its own work*.
 
 You write slides in plain Markdown. The skill handles compilation via Pandoc, runs automated layout analysis to catch overflow and spacing issues, and iterates until the PDF is clean. No manual LaTeX debugging.
 
@@ -25,6 +25,14 @@ You write slides in plain Markdown. The skill handles compilation via Pandoc, ru
 ```
 
 That's it. The skill takes over: writes the markdown, compiles, analyzes layout, fixes issues, recompiles — and hands you a polished PDF.
+
+<div align="center">
+  <br/>
+  <img src="assets/demo.gif" width="700" alt="markdown-to-slides demo"/>
+  <br/>
+  <sub>The full compile → analyze → fix loop in action</sub>
+  <br/><br/>
+</div>
 
 ---
 
@@ -210,16 +218,53 @@ When the analyzer flags issues, here's the playbook:
 
 ---
 
+## Showcase
+
+These slides were generated from [`examples/showcase.md`](examples/showcase.md) — a 50-line Markdown file:
+
+<div align="center">
+<table>
+<tr>
+<td><img src="assets/showcase/slide_1.png" width="380" alt="Title slide"/></td>
+<td><img src="assets/showcase/slide_2.png" width="380" alt="Core idea slide with math"/></td>
+</tr>
+<tr>
+<td align="center"><sub>Title slide — auto-generated from YAML frontmatter</sub></td>
+<td align="center"><sub>Display math, bullet points, bold emphasis</sub></td>
+</tr>
+<tr>
+<td><img src="assets/showcase/slide_3.png" width="380" alt="Taylor expansion proof"/></td>
+<td><img src="assets/showcase/slide_4.png" width="380" alt="Comparison table"/></td>
+</tr>
+<tr>
+<td align="center"><sub>Multi-line equations with aligned notation</sub></td>
+<td align="center"><sub>Professional tables with booktabs styling</sub></td>
+</tr>
+<tr>
+<td><img src="assets/showcase/slide_5.png" width="380" alt="Convergence guarantees"/></td>
+<td><img src="assets/showcase/slide_6.png" width="380" alt="Summary slide"/></td>
+</tr>
+<tr>
+<td align="center"><sub>Theorem-style content with key quantities</sub></td>
+<td align="center"><sub>Clean numbered summary with references</sub></td>
+</tr>
+</table>
+</div>
+
+> **All 6 slides from 50 lines of Markdown.** No LaTeX was written by hand — just standard Markdown with `$$math$$` and `| tables |`.
+
+---
+
 ## Examples
 
-See [`examples/minimal.md`](examples/minimal.md) for a complete starter template.
+See [`examples/minimal.md`](examples/minimal.md) for a starter template and [`examples/showcase.md`](examples/showcase.md) for the full deck above.
 
 ```bash
-# Compile the example
-pandoc examples/minimal.md -t beamer --pdf-engine=pdflatex -o examples/minimal.pdf
+# Compile the showcase
+pandoc examples/showcase.md -t beamer --pdf-engine=pdflatex -o examples/showcase.pdf
 
 # Analyze it
-python tools/analyze_slides.py examples/minimal.pdf
+python tools/analyze_slides.py examples/showcase.pdf
 ```
 
 ---
@@ -236,8 +281,16 @@ markdown-to-slides/
 ├── tools/
 │   └── analyze_slides.py        # PDF layout analyzer (PyMuPDF)
 ├── examples/
-│   └── minimal.md               # Starter template
-├── assets/                      # Mascots & logo
+│   ├── minimal.md               # Starter template
+│   └── showcase.md              # Full showcase deck (gradient descent)
+├── scripts/
+│   ├── pdf_to_png.py            # Convert PDF slides to PNG images
+│   └── make_demo_gif.py         # Generate the terminal demo GIF
+├── assets/
+│   ├── logo.svg                 # Project logo
+│   ├── demo.gif                 # Terminal demo animation
+│   ├── mascot-*.svg             # Slide mascot characters
+│   └── showcase/                # Rendered slide screenshots
 ├── LICENSE
 └── README.md
 ```
