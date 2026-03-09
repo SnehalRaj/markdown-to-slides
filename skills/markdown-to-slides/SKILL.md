@@ -26,11 +26,26 @@ digraph pipeline {
 }
 ```
 
+**Step 0 — Check dependencies (do this FIRST, every time):**
+
+```bash
+# Check what's available
+which pandoc && which pdflatex && python3 -c "import fitz" 2>/dev/null && echo "All deps OK" || echo "Missing deps"
+```
+
+Install anything missing:
+- **pandoc**: `brew install pandoc` (macOS) / `sudo apt install pandoc` (Ubuntu)
+- **pdflatex**: `brew install --cask mactex` (macOS) / `sudo apt install texlive-latex-recommended texlive-fonts-extra` (Ubuntu)
+- **PyMuPDF** (for analyzer): `pip install PyMuPDF`
+
+If PyMuPDF cannot be installed, **skip the analyze step** — compile and visually inspect the PDF instead. The analyzer is optional; the compile step is not.
+
 **Steps:**
 
 1. **Write markdown** with YAML frontmatter (see format below)
 2. **Compile**: `pandoc INPUT.md -t beamer --pdf-engine=pdflatex -o OUTPUT.pdf`
-3. **Analyze**: `python analyze_slides.py OUTPUT.pdf` (bundled in this skill's `tools/` directory)
+3. **Analyze** (if PyMuPDF available): `python analyze_slides.py OUTPUT.pdf`
+   - If unavailable: read the PDF visually and check for overflow/density manually
 4. **Fix** any HIGH/MEDIUM issues flagged
 5. **Repeat** steps 2-4 until no HIGH issues remain
 6. **Visual check**: Read the PDF to verify it looks good
