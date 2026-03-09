@@ -1,0 +1,24 @@
+{
+  "name": "markdown-to-slides",
+  "description": "Pandoc + Beamer pipeline for creating polished PDF slide decks from Markdown with automated layout analysis",
+  "version": "1.0.0",
+  "author": {
+    "name": "Snehal Raj",
+    "github": "SnehalRaj"
+  },
+  "homepage": "https://github.com/SnehalRaj/markdown-to-slides",
+  "repository": "https://github.com/SnehalRaj/markdown-to-slides",
+  "license": "MIT",
+  "keywords": [
+    "slides",
+    "presentations",
+    "markdown",
+    "beamer",
+    "pandoc",
+    "latex",
+    "pdf",
+    "layout-analysis",
+    "claude-code"
+  ],
+  "skills": "./skills"
+}

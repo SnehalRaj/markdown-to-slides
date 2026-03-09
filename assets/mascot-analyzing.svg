@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Slide character body -->
+  <rect x="40" y="30" width="120" height="90" rx="8" fill="#4A90D9" stroke="#2C5F8A" stroke-width="3"/>
+  <!-- Screen with checkmarks -->
+  <rect x="50" y="40" width="100" height="65" rx="4" fill="#E8F0FE"/>
+  <!-- Check marks -->
+  <path d="M 62 55 L 68 62 L 78 48" fill="none" stroke="#27AE60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 62 72 L 68 79 L 78 65" fill="none" stroke="#27AE60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 62 89 L 68 96 L 78 82" fill="none" stroke="#E74C3C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Labels next to checks -->
+  <line x1="85" y1="55" x2="135" y2="55" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="85" y1="72" x2="130" y2="72" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="85" y1="89" x2="140" y2="89" stroke="#E74C3C" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Eyes (squinting, analyzing) -->
+  <line x1="72" y1="135" x2="88" y2="135" stroke="#2C5F8A" stroke-width="3" stroke-linecap="round"/>
+  <line x1="112" y1="135" x2="128" y2="135" stroke="#2C5F8A" stroke-width="3" stroke-linecap="round"/>
+  <!-- Thinking mouth -->
+  <line x1="90" y1="152" x2="110" y2="152" stroke="#2C5F8A" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Magnifying glass -->
+  <circle cx="155" cy="130" r="18" fill="none" stroke="#F5A623" stroke-width="3.5"/>
+  <line x1="167" y1="143" x2="180" y2="158" stroke="#F5A623" stroke-width="4" stroke-linecap="round"/>
+  <!-- Feet -->
+  <ellipse cx="75" cy="178" rx="18" ry="8" fill="#4A90D9"/>
+  <ellipse cx="125" cy="178" rx="18" ry="8" fill="#4A90D9"/>
+</svg>
