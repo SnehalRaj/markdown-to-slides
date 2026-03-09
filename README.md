@@ -63,8 +63,27 @@ sudo apt install pandoc      # Ubuntu/Debian
 brew install --cask mactex   # macOS (full) — or basictex for minimal
 sudo apt install texlive-latex-recommended texlive-fonts-extra  # Ubuntu
 
-# PyMuPDF (the layout analyzer)
-pip install PyMuPDF
+# Layout analyzer (pick one)
+pip install pdfplumber   # Lite — pure Python, always works
+pip install PyMuPDF      # Full — faster, needs C compiler
+```
+
+### No sudo? (servers, containers, Codespaces)
+
+```bash
+# Pandoc — standalone binary
+mkdir -p ~/local/bin
+curl -sL https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-linux-amd64.tar.gz \
+  | tar xz --strip-components=2 -C ~/local/bin
+export PATH="$HOME/local/bin:$PATH"
+
+# LaTeX — TinyTeX (no root needed)
+curl -sL "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+export PATH="$HOME/.TinyTeX/bin/x86_64-linux:$PATH"
+tlmgr install beamer metropolis pgfopts
+
+# Analyzer — pure Python, no build tools
+pip install pdfplumber
 ```
 
 ---
@@ -118,7 +137,14 @@ Just mention slides in any Claude Code conversation:
 
 ## Layout Analyzer
 
-The bundled `analyze_slides.py` uses PyMuPDF to inspect every slide for layout issues:
+Two analyzer versions are bundled — pick whichever installs on your system:
+
+| Version | Install | Dependency |
+|---------|---------|-----------|
+| `analyze_slides.py` | `pip install PyMuPDF` | C extensions (faster, may need compiler) |
+| `analyze_slides_lite.py` | `pip install pdfplumber` | Pure Python (always works) |
+
+Both check every slide for the same layout issues:
 
 | Issue | Severity | What it catches |
 |-------|----------|----------------|
@@ -279,7 +305,8 @@ markdown-to-slides/
 │   └── markdown-to-slides/
 │       └── SKILL.md             # Skill definition (auto-loaded)
 ├── tools/
-│   └── analyze_slides.py        # PDF layout analyzer (PyMuPDF)
+│   ├── analyze_slides.py        # PDF layout analyzer (PyMuPDF)
+│   └── analyze_slides_lite.py   # Lite version (pdfplumber, pure Python)
 ├── examples/
 │   ├── minimal.md               # Starter template
 │   └── showcase.md              # Full showcase deck (gradient descent)
@@ -320,8 +347,11 @@ The tools work standalone:
 # 2. Compile
 pandoc your_slides.md -t beamer --pdf-engine=pdflatex -o your_slides.pdf
 
-# 3. Analyze
-pip install PyMuPDF
+# 3. Analyze (pick one)
+pip install pdfplumber                              # pure Python
+python tools/analyze_slides_lite.py your_slides.pdf
+# OR
+pip install PyMuPDF                                 # faster, needs compiler
 python tools/analyze_slides.py your_slides.pdf
 
 # 4. Fix flagged issues in your .md file, repeat from step 2

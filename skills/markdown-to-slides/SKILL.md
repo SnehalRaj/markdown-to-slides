@@ -34,18 +34,39 @@ which pandoc && which pdflatex && python3 -c "import fitz" 2>/dev/null && echo "
 ```
 
 Install anything missing:
+
+**With sudo/brew:**
 - **pandoc**: `brew install pandoc` (macOS) / `sudo apt install pandoc` (Ubuntu)
 - **pdflatex**: `brew install --cask mactex` (macOS) / `sudo apt install texlive-latex-recommended texlive-fonts-extra` (Ubuntu)
-- **PyMuPDF** (for analyzer): `pip install PyMuPDF`
 
-If PyMuPDF cannot be installed, **skip the analyze step** — compile and visually inspect the PDF instead. The analyzer is optional; the compile step is not.
+**Without sudo (servers, containers):**
+- **pandoc**: download binary from GitHub releases:
+  ```bash
+  mkdir -p ~/local/bin
+  curl -sL https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-linux-amd64.tar.gz | tar xz --strip-components=2 -C ~/local/bin
+  export PATH="$HOME/local/bin:$PATH"
+  ```
+- **pdflatex** via TinyTeX (no root needed):
+  ```bash
+  curl -sL "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+  export PATH="$HOME/.TinyTeX/bin/x86_64-linux:$PATH"
+  tlmgr install beamer metropolis pgfopts
+  ```
+
+**Analyzer** (optional — two options):
+- **Full** (needs C compiler): `pip install PyMuPDF` → use `analyze_slides.py`
+- **Lite** (pure Python, always works): `pip install pdfplumber` → use `analyze_slides_lite.py`
+
+If neither can be installed, skip the analyze step — compile and visually inspect the PDF instead.
 
 **Steps:**
 
 1. **Write markdown** with YAML frontmatter (see format below)
 2. **Compile**: `pandoc INPUT.md -t beamer --pdf-engine=pdflatex -o OUTPUT.pdf`
-3. **Analyze** (if PyMuPDF available): `python analyze_slides.py OUTPUT.pdf`
-   - If unavailable: read the PDF visually and check for overflow/density manually
+3. **Analyze** (pick one):
+   - `python analyze_slides.py OUTPUT.pdf` (needs PyMuPDF)
+   - `python analyze_slides_lite.py OUTPUT.pdf` (needs pdfplumber — pure Python, always installs)
+   - If neither available: read the PDF visually and check for overflow/density manually
 4. **Fix** any HIGH/MEDIUM issues flagged
 5. **Repeat** steps 2-4 until no HIGH issues remain
 6. **Visual check**: Read the PDF to verify it looks good
